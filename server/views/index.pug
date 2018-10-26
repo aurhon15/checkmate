@@ -1,0 +1,90 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  title Checkmate
+  link(rel='stylesheet' href='css/style.css')
+  link(rel='stylesheet' href='css/bootstrap.min.css')
+  
+#app
+  .container
+    br
+    nav#top-navigation.well.well-sm.flex.flex-row.align-center
+      a(href='#' v-on:click.prevent='isShowingCart = false')
+        h4 ITEM LIST
+      .text-right.pull-right.cart-info
+        span.stats
+          | {{ cart.items.length }} 
+          template(v-if='cart.items.length == 1') item
+          template(v-else='') items
+          |  in cart, PHP {{ cartTotal }}
+        button.btn.btn-primary.btn-lg(v-on:click='isShowingCart = !isShowingCart') Toggle Cart / Item List
+    button.btn.btn-primary(v-on:click='showAdd = !showAdd') TOGGLE ADD ITEM
+    br
+    br
+    div(v-show='showAdd')
+      form(v-on:submit='addItem')
+        .form-group
+          label(for='e') Item Name
+          input.form-control(type='text' required='' placeholder='Insert Name' name='name' v-model='name')
+        .form-group
+          label(for='') Description
+          input.form-control(type='text' required='' placeholder='Insert Description ' name='description' v-model='description')
+        .form-group
+          label(for='') Price
+          input.form-control(type='number' required='' placeholder='Ex. 2000' name='price' v-model='price')
+        .form-group
+          label(for='') Quantity
+          input.form-control(type='number' required='' placeholder='Ex. 20' name='inStock' v-model='inStock')
+        input.btn.btn-primary.btn-lg.btn-block(type='submit' value='ADD')
+    div
+      br
+    #products.row.list-group(v-show='!isShowingCart')
+      section
+        table.table
+          tr
+            th Item Name
+            th Description
+            th Quantity
+            th Price
+            th Actions
+          tr(v-for='product in products')
+            td {{ product.name }}
+            td {{ product.description }}
+            td {{ product.inStock }}
+            td {{ product.price }}
+            td
+              button.btn.btn-danger(v-on:click='delItem(product)') Delete
+              | 
+              button.btn.btn-success(v-on:click='addProductToCart(product)' :disabled='product.inStock == 0') Add to cart
+              | 
+              button.btn.btn-info(v-on:click='getProd(product.id)') Edit
+    div(v-show='isShowingCart')
+      h1 Item Cart
+      table.table.table-borderless(v-if='cart.items.length > 0')
+        thead
+          tr
+            th Product
+            th Quantity
+            th Price
+        tbody
+          tr(v-for='item in cart.items')
+            td {{ item.product.name }}
+            td
+              | {{ item.quantity }} &nbsp;
+              button.btn.btn-success(v-on:click='increaseQuantity(item)' :disabled='item.product.inStock == 0') +
+              button.btn.btn-danger(v-on:click='decreaseQuantity(item)') -
+            td {{ item.quantity * item.product.price | currency }}
+          tr
+            td.text-right(colspan='2')
+              strong Total
+            td {{ cartTotal  }}
+         
+            
+          tr
+            td(colspan='2')
+            td
+              button.btn.btn-success(@click='checkout') Checkout
+      p(v-else='') Cart is Empty, Add item to cart
+script(src='https://unpkg.com/vue/dist/vue.js')
+script(src='js/app.js')

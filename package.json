@@ -1,0 +1,23 @@
+{
+  "name": "checkmate",
+  "version": "1.0.0",
+  "description": "shopping center",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "package.json": "^2.0.1",
+    "path": "^0.12.7",
+    "pug": "^2.0.3",
+    "simple-json-store": "0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "^5.7.0"
+  },
+  "author": "checkmate",
+  "license": "ISC"
+}

@@ -14,13 +14,14 @@ router.get('/', (req, res, next) => {
   
 });
 
-//get 
+//get ID
 router.get('/:id', (req, res) => {
   let product = {};
   const products = store.get('products');
-  product = products.find(products => products.id === req.params.id);
+  product = products.find(products => products.id == req.params.id);
   res.json(product);
 });
+
 
 
 
@@ -32,7 +33,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    quantity: req.body.quantity
+    inStock: req.body.inStock
     
 
   };
@@ -45,21 +46,22 @@ router.post('/', (req, res) => {
 
 
 
-//UPDATE
-router.put('/:id', (req, res) => {
+//update 
+router.put('/:id',(req, res) => {
   const id = req.params.id;
   const products = store.get('products');
+  const product = products.find(c => c.id === parseFloat (req.params.id));
+  if(!product) res.status(404).send('Eror 404 ID not found');
 
-  for(let i = 0; i < products.length; i++) {
-    if(products[i].id === id) {
-      products[i].name = req.body.name;
-      ptoducts[i].description = req.body.description;
-      break;
-    }
-  }   
-
+  product.name = req.body.name;
+  product.description = req.body.description;
+  product.inStock = req.body.inStock;
+  product.name = req.body.name;
+  
+  
   store.set('products', products);
-  res.json(store.get('products'));
+  res.send(store.get('products'));
+
 });
 
 

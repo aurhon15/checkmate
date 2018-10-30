@@ -3,80 +3,131 @@ new Vue({
     data: {
         isShowingCart: false,
         showAdd: false,
-        name: null,
-        price: null,
+        name: null,     
         description: null,
-        quantity: null,
+        price: null,
+        inStock: null,
+        products:[],
         cart: {
             items: []
         
-        },
+        }
+
       
-      
-        products: [
-            {
-                id: 1,
-                name: 'Lorem ipsum dolor sit amet.',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus.',
-                price: 1000,
-                inStock: 50
-            },
-            {
-                id: 2,
-                name: 'Lorem ipsum dolor sit amet.',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus.',
-                price: 2000,
-                inStock: 100
-            },
-            {
-                id: 3,
-                name: 'Lorem ipsum dolor sit amet.',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus.',
-                price: 2000,
-                inStock: 4
-            },
-            {
-                id: 4,
-                name: 'Lorem ipsum dolor sit amet.',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus.',
-                price: 2000,
-                inStock: 42
-            },
-           
-            
-        ]
     },
 
+    created: function() {
+        var self = this;
+        axios.get('http://localhost:3300/api/products')
+          .then(function(res) {
+            self.products = res.data;
+          })
+          .catch(function(err) {
+            self.products = [];
+          });
+      },
   
 
     methods: {
         
 
-        addItem:function(err){
+        // addItem:function(err){
             
-            this.products.push({
+        //     this.products.push({
                 
-                name: this.name,
-                description: this.description,
-                price: this.price,
-                inStock: this.inStock
-            });
-            err.preventDefault(err);
-        },
+        //         name: this.name,
+        //         description: this.description,
+        //         inStock: this.inStock,
+        //         price: this.price,
+               
+        //     });
+        //     err.preventDefault(err);
+        // },
 
-        delItem:function(product){
+        addProd: function() {
+            var self = this;
+            var payload = {
+              name: self.name,
+              description: self.description,
+              price: self.price,
+              inStock: self.inStock
+            };
+            axios.post('/api/products', payload)
+              .then(function(res) {
+                self.products = res.data;
+                self.clear();
+              
+              })
+              .catch(function(err) {
+              });
+          },
+        
+        deleteProd: function(product) {
+            var self = this;
+            axios.delete('/api/products/' + product.id)
+              .then(function(res) {
+                // self.notes = res.data;
+                var index = -1;
+                for(var i = 0; i < self.products.length; ++i) {
+                  if(Number(self.products[i].id) === Number(product.id)) {
+                    index = i;
+                    break;
+                  }
+                }
+                self.products.splice(index, 1);
+                self.clear();
+              })
+              .catch(function(err) {
+              });
+          },
+
+        // delItem:function(product){
             
-            this.products.splice(this.products.indexOf(product), 1);
+        //     this.products.splice(this.products.indexOf(product), 1);
                 
              
-        },
+        // },
 
-        getItem:function(product){
+        getProd: function(id,name,description,inStock,price) {
+      
+            let self = this;
+            self.name = name;
+            self.description = description;
+            self.inStock = inStock;
+            self.price = price;
            
-            this.products.find(check => check.id === parseFloat (req.params.id));
+    
+    
+              
+          },
+        
+          updateProd: function(){
+             {
+              let uri = '/api/products/' + this.$route.params.id;
+                this.axios.put(uri, this.products).then((response) => {
+                  this.$router.put(
+                      {
+                          name: this.name,
+                          description:this.description,
+                          inStock: this.inStock,  
+                          price: this.price   
+
+                    
+                     });
+                });
+            }
+
+          },
+
+          clear: function() {
+            this.name = null;
+            this.description = null;
+            this.price = null;
+            this.quantity = null;
             
-            res.send(product);
-        },
+          },
+
+       
         
         addProductToCart: function(product) {
             var cartItem = this.getCartItem(product);
@@ -139,6 +190,7 @@ new Vue({
             return null;
         }
     },
+    
 
     computed: {
         cartTotal: function() {
@@ -151,8 +203,6 @@ new Vue({
             return total;
         },
 
-        // taxAmount: function() {
-        //     return ((this.cartTotal * 10) / 100);
-        // }
+      
     }
 });

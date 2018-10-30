@@ -8,6 +8,7 @@ head
   
 #app
   .container
+    
     br
     nav#top-navigation.well.well-sm.flex.flex-row.align-center
       a(href='#' v-on:click.prevent='isShowingCart = false')
@@ -19,13 +20,13 @@ head
           template(v-else='') items
           |  in cart, PHP {{ cartTotal }}
         button.btn.btn-primary.btn-lg(v-on:click='isShowingCart = !isShowingCart') Toggle Cart / Item List
-    button.btn.btn-primary(v-on:click='showAdd = !showAdd') TOGGLE ADD ITEM
+    button.btn.btn-warning.btn-lg(v-on:click='showAdd = !showAdd') TOGGLE ADD ON/OFF
     br
     br
     div(v-show='showAdd')
-      form(v-on:submit='addItem')
+      form(v-on:submit='addProd')
         .form-group
-          label(for='e') Item Name
+          label(for='') Item Name
           input.form-control(type='text' required='' placeholder='Insert Name' name='name' v-model='name')
         .form-group
           label(for='') Description
@@ -36,7 +37,12 @@ head
         .form-group
           label(for='') Quantity
           input.form-control(type='number' required='' placeholder='Ex. 20' name='inStock' v-model='inStock')
-        input.btn.btn-primary.btn-lg.btn-block(type='submit' value='ADD')
+          div.row
+            | <br>
+            div.col-md-6
+              input.btn.btn-primary.btn-lg.btn-block(type='submit' value='ADD')
+            div.col-md-6
+              button.btn.btn-primary.btn-lg.btn-block(type="button" v-on:click="updateProd" class="btn btn-info") Update
     div
       br
     #products.row.list-group(v-show='!isShowingCart')
@@ -54,11 +60,11 @@ head
             td {{ product.inStock }}
             td {{ product.price }}
             td
-              button.btn.btn-danger(v-on:click='delItem(product)') Delete
+              button.btn.btn-danger(v-on:click='deleteProd(product)') Delete
               | 
               button.btn.btn-success(v-on:click='addProductToCart(product)' :disabled='product.inStock == 0') Add to cart
               | 
-              button.btn.btn-info(v-on:click='getProd(product.id)') Edit
+              button(v-on:click="showAdd=true; getProd(product.id,product.name,product.description,product.inStock,product.price);" class="btn btn-info") Edit
     div(v-show='isShowingCart')
       h1 Item Cart
       table.table.table-borderless(v-if='cart.items.length > 0')
@@ -86,5 +92,12 @@ head
             td
               button.btn.btn-success(@click='checkout') Checkout
       p(v-else='') Cart is Empty, Add item to cart
+
+
+
+
+     
+            
+script(src="js/axios.min.js")     
 script(src='https://unpkg.com/vue/dist/vue.js')
 script(src='js/app.js')

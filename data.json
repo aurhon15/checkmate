@@ -29,13 +29,6 @@
 			"inStock": "3"
 		},
 		{
-			"id": 18,
-			"name": "Lorem ipsum dolor 33333333",
-			"price": "20",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd",
-			"inStock": "5"
-		},
-		{
 			"id": 19,
 			"name": "Lorem ipsum dolor 323",
 			"price": "20",
@@ -43,11 +36,11 @@
 			"inStock": "5"
 		},
 		{
-			"id": 20,
-			"name": "Lorem ipsum dolor 34",
-			"price": "2023",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd32",
-			"inStock": "52"
+			"id": 21,
+			"name": "MSI Gaming Laptop",
+			"price": "20000",
+			"description": "bobo si pen",
+			"inStock": "20"
 		}
 	]
 }

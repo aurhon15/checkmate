@@ -1,39 +1,53 @@
 {
 	"products": [
 		{
-			"id": 2,
-			"name": "sansung",
-			"price": "200",
-			"description": "200",
-			"quantity": "200"
-		},
-		{
-			"id": 5,
-			"name": "sd",
-			"price": "sd",
-			"description": "sd",
-			"quantity": "sd"
-		},
-		{
-			"id": 6,
-			"name": "sad",
-			"price": "asd",
-			"description": "asd",
-			"quantity": "sad"
-		},
-		{
 			"id": 9,
-			"name": "zxc",
-			"price": "zxc",
-			"description": "zcx",
-			"quantity": "zxc"
+			"name": "Lorem ipsum dolor 3",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd",
+			"price": "20",
+			"inStock": "5"
 		},
 		{
 			"id": 10,
-			"name": "asd",
-			"price": "asd",
-			"description": "asd",
-			"quantity": "asd"
+			"name": "Lorem ipsum dolor 4",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd",
+			"price": "20",
+			"inStock": "5"
+		},
+		{
+			"id": 16,
+			"name": "Jordan 1",
+			"price": "20000",
+			"description": "BRED OD SCHOOL",
+			"inStock": "10"
+		},
+		{
+			"id": 17,
+			"name": "MSI Gaming Laptop",
+			"price": "80000",
+			"description": "8th Gen gaming laptop",
+			"inStock": "3"
+		},
+		{
+			"id": 18,
+			"name": "Lorem ipsum dolor 33333333",
+			"price": "20",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd",
+			"inStock": "5"
+		},
+		{
+			"id": 19,
+			"name": "Lorem ipsum dolor 323",
+			"price": "20",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd",
+			"inStock": "5"
+		},
+		{
+			"id": 20,
+			"name": "Lorem ipsum dolor 34",
+			"price": "2023",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed.sd32",
+			"inStock": "52"
 		}
 	]
 }

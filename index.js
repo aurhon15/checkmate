@@ -53,7 +53,7 @@ app.set('view engine', 'pug');
 app.use('/', indexRouter);
 // app.use('/update', updateRouter);
 // //app.use('/about', aboutRouter);
-// app.use('/api/products', productsRouter);
+ app.use('/api/products', productsRouter);
 
 
 //*****PORT********
